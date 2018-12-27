@@ -90,7 +90,7 @@ const options = {
   devServer: {
     contentBase: outputPath,
     compress: false,
-    port: env.PORT || 8080
+    port: env.PORT
   }
 }
 
