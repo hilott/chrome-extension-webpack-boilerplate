@@ -1,26 +1,26 @@
-var webpack = require("webpack"),
+const webpack = require("webpack"),
   path = require("path"),
   fileSystem = require("fs"),
   env = require("./utils/env"),
   CleanWebpackPlugin = require("clean-webpack-plugin"),
   CopyWebpackPlugin = require("copy-webpack-plugin"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
-  WriteFilePlugin = require("write-file-webpack-plugin");
+  WriteFilePlugin = require("write-file-webpack-plugin")
 
 // load the secrets
-var alias = {};
+const alias = {}
 
-var secretsPath = path.join(__dirname, ("secrets." + env.NODE_ENV + ".js"));
+const secretsPath = path.join(__dirname, ("secrets." + env.NODE_ENV + ".js"))
 
-var fileExtensions = ["jpg", "jpeg", "png", "gif", "eot", "otf", "svg", "ttf", "woff", "woff2"];
+const fileExtensions = ["jpg", "jpeg", "png", "gif", "eot", "otf", "svg", "ttf", "woff", "woff2"]
 
 if (fileSystem.existsSync(secretsPath)) {
   alias["secrets"] = secretsPath;
 }
 
-var outputPath = path.join(__dirname, "build")
+const outputPath = path.join(__dirname, "build")
 
-var options = {
+const options = {
   entry: {
     popup: path.join(__dirname, "src", "js", "popup.js"),
     options: path.join(__dirname, "src", "js", "options.js"),
@@ -92,10 +92,10 @@ var options = {
     compress: false,
     port: env.PORT || 8080
   }
-};
-
-if (env.NODE_ENV === "development") {
-  options.devtool = "cheap-module-eval-source-map";
 }
 
-module.exports = options;
+if (env.NODE_ENV === "development") {
+  options.devtool = "cheap-module-eval-source-map"
+}
+
+module.exports = options
