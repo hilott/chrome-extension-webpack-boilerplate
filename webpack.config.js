@@ -1,11 +1,11 @@
 var webpack = require("webpack"),
-    path = require("path"),
-    fileSystem = require("fs"),
-    env = require("./utils/env"),
-    CleanWebpackPlugin = require("clean-webpack-plugin"),
-    CopyWebpackPlugin = require("copy-webpack-plugin"),
-    HtmlWebpackPlugin = require("html-webpack-plugin"),
-    WriteFilePlugin = require("write-file-webpack-plugin");
+  path = require("path"),
+  fileSystem = require("fs"),
+  env = require("./utils/env"),
+  CleanWebpackPlugin = require("clean-webpack-plugin"),
+  CopyWebpackPlugin = require("copy-webpack-plugin"),
+  HtmlWebpackPlugin = require("html-webpack-plugin"),
+  WriteFilePlugin = require("write-file-webpack-plugin");
 
 // load the secrets
 var alias = {};
@@ -18,6 +18,8 @@ if (fileSystem.existsSync(secretsPath)) {
   alias["secrets"] = secretsPath;
 }
 
+var outputPath = path.join(__dirname, "build")
+
 var options = {
   entry: {
     popup: path.join(__dirname, "src", "js", "popup.js"),
@@ -25,7 +27,7 @@ var options = {
     background: path.join(__dirname, "src", "js", "background.js")
   },
   output: {
-    path: path.join(__dirname, "build"),
+    path: outputPath,
     filename: "[name].bundle.js"
   },
   module: {
@@ -84,7 +86,12 @@ var options = {
       chunks: ["background"]
     }),
     new WriteFilePlugin()
-  ]
+  ],
+  devServer: {
+    contentBase: outputPath,
+    compress: false,
+    port: env.PORT || 8080
+  }
 };
 
 if (env.NODE_ENV === "development") {
