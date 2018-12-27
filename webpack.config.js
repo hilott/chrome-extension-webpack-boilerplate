@@ -21,6 +21,10 @@ if (fileSystem.existsSync(secretsPath)) {
 const outputPath = path.join(__dirname, "build")
 
 const options = {
+  mode: env.NODE_ENV,
+  performance: {
+    hints: false
+  },
   entry: {
     popup: path.join(__dirname, "src", "js", "popup.js"),
     options: path.join(__dirname, "src", "js", "options.js"),
